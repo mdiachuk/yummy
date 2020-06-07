@@ -18,6 +18,10 @@ export class RecipesService {
   constructor(private ingredientsService: IngredientsService) {
   }
 
+  getRecipe(id: number): Recipe {
+    return this.recipes[id];
+  }
+
   getRecipes(): Recipe[] {
     return this.recipes.slice();
   }

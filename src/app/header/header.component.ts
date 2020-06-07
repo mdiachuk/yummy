@@ -7,16 +7,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Output() changeTab = new EventEmitter<string>();
-
   constructor() {
   }
 
   ngOnInit(): void {
   }
-
-  onChangeTab(tab: string) {
-    this.changeTab.emit(tab);
-  }
-
 }
