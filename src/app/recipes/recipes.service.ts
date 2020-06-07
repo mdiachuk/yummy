@@ -1,7 +1,8 @@
 import { Recipe } from './recipe.model';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import { IngredientsService } from '../shared/ingredients.service';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class RecipesService {
@@ -12,8 +13,7 @@ export class RecipesService {
     new Recipe('Pizza', 'Description', 'https://recipes.timesofindia.com/thumb/56933159.cms?width=1200&height=1200',
       [new Ingredient('Tomatoes', 2), new Ingredient('Meat', 1), new Ingredient('Cheese', 2)])
   ];
-
-  selectedRecipe = new EventEmitter<Recipe>();
+  selectedRecipe = new Subject<Recipe>();
 
   constructor(private ingredientsService: IngredientsService) {
   }
@@ -27,7 +27,7 @@ export class RecipesService {
   }
 
   selectRecipe(recipe: Recipe) {
-    this.selectedRecipe.emit(recipe);
+    this.selectedRecipe.next(recipe);
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
