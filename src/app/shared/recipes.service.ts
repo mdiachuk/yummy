@@ -1,7 +1,7 @@
-import { Recipe } from './recipe.model';
+import { Recipe } from '../recipes/recipe.model';
 import { Injectable } from '@angular/core';
-import { Ingredient } from '../shared/ingredient.model';
-import { IngredientsService } from '../shared/ingredients.service';
+import { Ingredient } from './ingredient.model';
+import { IngredientsService } from './ingredients.service';
 import { Subject } from 'rxjs';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class RecipesService {
     new Recipe('Pizza', 'Description', 'https://recipes.timesofindia.com/thumb/56933159.cms?width=1200&height=1200',
       [new Ingredient('Tomatoes', 2), new Ingredient('Meat', 1), new Ingredient('Cheese', 2)])
   ];
-  selectedRecipe = new Subject<Recipe>();
+  recipesChanges = new Subject<Recipe[]>();
 
   constructor(private ingredientsService: IngredientsService) {
   }
@@ -26,8 +26,19 @@ export class RecipesService {
     return this.recipes.slice();
   }
 
-  selectRecipe(recipe: Recipe) {
-    this.selectedRecipe.next(recipe);
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanges.next(this.getRecipes());
+  }
+
+  updateRecipe(index: number, recipe: Recipe) {
+    this.recipes[index] = recipe;
+    this.recipesChanges.next(this.getRecipes());
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+    this.recipesChanges.next(this.recipes);
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
