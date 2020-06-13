@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +7,17 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() {
+  constructor(private dataService: DataService) {
   }
 
   ngOnInit(): void {
+  }
+
+  onSaveData() {
+    this.dataService.saveAll();
+  }
+
+  onFetchData() {
+    this.dataService.getAll().subscribe();
   }
 }
