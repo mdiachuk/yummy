@@ -89,5 +89,6 @@ export class RecipeEditComponent implements OnInit {
 
   onDeleteIngredient(index: number) {
     (this.form.get('ingredients') as FormArray).controls.splice(index, 1);
+    this.form.get('ingredients').updateValueAndValidity();
   }
 }

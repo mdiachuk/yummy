@@ -18,7 +18,7 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <label>Ingredients</label>
+        <label>Ingredients<span *ngIf="getIngredientControls().length < 1"> (empty)</span></label>
       </div>
     </div>
     <div class="row">
